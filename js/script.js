@@ -40,10 +40,8 @@ function delQuantity(del) {
         del[i].addEventListener("click", () => {
             cart[i].remove();
             del.length--;
-            const deleted = cartTotal.filter((item) => item == price[i]);
-            const deletedPrices = deleted.reduce((a, b) => a + b, 0);
-            const total = cartTotal.reduce((a, b) => a + b, 0);
-            result.textContent = `${total - deletedPrices} $`;
+            cartTotal.splice(cartTotal.indexOf(price[i]), cartTotal.filter(item => item == price[i]).length);
+            result.textContent = `${cartTotal.reduce((a, b) => a + b, 0)} $`;
             if (del.length == 0) {
                 location.reload();
             }
