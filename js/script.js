@@ -1,17 +1,30 @@
 // OOP Shopping Cart
-class ShoppingCart {
-    constructor() {
+class CartItems{
+    constructor(){
+        this.id = document.querySelectorAll(".cart");
+        this.name = document.querySelectorAll(".card-title");
+        this.price = [100, 20, 50]
         this.plus = document.querySelectorAll(".fa-plus-circle");
         this.minus = document.querySelectorAll(".fa-minus-circle");
         this.del = document.querySelectorAll(".fa-trash-alt");
         this.like = document.querySelectorAll(".fa-heart");
-        this.quantity = document.querySelectorAll(".quantity");
-        this.price = [100, 20, 50];
-        this.cartTotal = [];
-        this.cart = document.querySelectorAll(".cart");
         this.result = document.querySelector(".total");
     }
+}
+class ShoppingInstances extends CartItems{
+    constructor() {
+        super();
+        this.cartTotal = [];
+    }
+}
 
+class ShoppingCart extends ShoppingInstances{
+    constructor(){
+        super();
+        this.product = document.querySelectorAll(".card");
+        this.cart = document.querySelectorAll(".cart");
+        this.quantity = document.querySelectorAll(".quantity");
+    }
     addQuantity() {
         const add = Array.from(this.plus);
         for (let i = 0; i < add.length; i++) {
@@ -23,7 +36,6 @@ class ShoppingCart {
             });
         }
     }
-
     subQuantity() {
         const sub = Array.from(this.minus);
         for (let i = 0; i < sub.length; i++) {
@@ -37,12 +49,11 @@ class ShoppingCart {
             });
         }
     }
-
     delQuantity() {
         for (let i = 0; i < this.del.length; i++) {
             this.del[i].addEventListener("click", () => {
                 this.cart[i].remove();
-                this.del.length--;
+                this.del.length - 1;
                 this.cartTotal.splice(
                     this.cartTotal.indexOf(this.price[i]),
                     this.cartTotal.filter((item) => item == this.price[i]).length
@@ -52,12 +63,11 @@ class ShoppingCart {
                     0
                 )} $`;
                 if (this.del.length == 0) {
-                    location.reload();
+                    window.reload();
                 }
             });
         }
     }
-
     likeReaction() {
         for (let i = 0; i < this.like.length; i++) {
             this.like[i].addEventListener("click", () => {
@@ -72,10 +82,9 @@ class ShoppingCart {
 
 const shoppingCart = new ShoppingCart();
 shoppingCart.addQuantity();
-shoppingCart.subQuantity();
 shoppingCart.delQuantity();
 shoppingCart.likeReaction();
-
+shoppingCart.subQuantity()
 
 // Functional Programming Shopping Cart
 /* const plus = document.querySelectorAll(".fa-plus-circle");
